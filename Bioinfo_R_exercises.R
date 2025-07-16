@@ -1,8 +1,9 @@
-# Exercise #1
+### EXERCISE #1 ###
 # Manipulating a DNA sequence as a string
+install.packages("stringr")
 
 library(stringr)
-dna <- "GTCGTCGTAGTAGGTTTATTATTCG"
+dna <- "GTCGTCGTAGTAGGTTTATTATTCAA"
 c_count <- stringr::str_count(dna, "C")
 g_count <- stringr::str_count(dna, "G")
 dna_len <- stringr::str_length(dna)
@@ -14,12 +15,32 @@ stringr::str_to_lower(dna)
 # mutations
 # substitution
 sequence_chars <- unlist(strsplit(dna, split = ""))
+sequence_chars
 sequence_chars[4] <- 'A'
-dna <- paste(sequence_chars, collapse = "")
-dna
+dna_mut <- paste(sequence_chars, collapse = "")
+dna_mut
+
+# OPTIONAL: view DNA sequences via Biostrings
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("Biostrings")
+BiocManager::install("msa")
+library(msa)
+
+Biostrings::DNAString(dna)
+Biostrings::DNAString(dna_mut)
+
+seqs <- DNAStringSet(c(dna, dna_mut))
+alignment <- msa(seqs, method = "ClustalW")
+alignment
+
 
 # inversion
-paste(rev(strsplit(dna,"")[[1]]),collapse="")
+paste(
+  rev(
+    strsplit(dna,"")[[1]]
+    ),
+  collapse="")
 
 # insertion
 dna2 <- paste0(stringr::str_sub(dna,1,7),"AAAAA",stringr::str_sub(dna,8,25),collapse="")
@@ -31,7 +52,7 @@ dna3
 
 
 
-# Exercise #2
+### EXERCISE #2 ###
 # Write function for Hardy-Weinberg equilibrium
 hardy_weinberg <- function(p) {
   # a little bit of error-handling
@@ -40,13 +61,14 @@ hardy_weinberg <- function(p) {
   homozygous <- 2*p*q/(p*p+2*p*q+q*q)
   return(homozygous)
 }
+
 p1 <- 0.21
 p1_homoz <- hardy_weinberg(p1)
 print(paste0("The proportion of homozygots is ",p1_homoz))
 
 
 
-# Exercise #3
+### EXERCISE #3 ###
 # RNA-seq experiment
 
 library(dplyr)
@@ -59,6 +81,7 @@ rna_exp <- data.frame(
   control1 = c(5.6,11.1,0.3,99.8),
   control2 = c(6.0,10.7,0.0,116.7)
 )
+rna_exp
 
 log2fc <- function(vec,n=3) {
   avg_trt <- mean(vec[1:n])
@@ -82,7 +105,7 @@ rna_exp %>% filter(log2fc < 2 & log2fc > 0.5) %>% select(genes)
 
 
 
-# Exercise #4
+### EXERCISE #4 ###
 # Using the hybridogram package on slightly a larger data set
 
 install.packages("hybridogram")
@@ -99,7 +122,7 @@ hybridogram(hybrid_data, codes)
 
 
 
-# Exercise #5
+### EXERCISE #5 ###
 # Use the matrixcut package to find clusters in matrixes
 
 install.packages("matrixcut")
