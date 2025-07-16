@@ -237,15 +237,17 @@ if (x > 5) {
 
 
 ### Continue here ###
-# See slides on applyting functions to data
+# Review slides on applying functions to data
 
 # apply, lapply, sapply, mapply
 # declare matrix
 mxx <- matrix(1:12,nrow=3,ncol=4)
 mxx
+
 # apply mean function to rows
 apply(mxx,1,mean)
-# (1+4+7+10)/4 = 5.5
+# first row: (1+4+7+10)/4 = 5.5
+
 # apply mean function to cols
 apply(mxx,2,mean)
 # (1+2+3)/3 = 2
@@ -256,8 +258,10 @@ nums <- c(2,4,7)
 lnums <- lapply(nums, sqrt)
 lnums
 lnums[[2]]
+
 # new function
 cubit <- function(n) {return(n*n*n)}
+
 # lapply produces a list
 lapply(nums, cubit)
 
@@ -269,5 +273,7 @@ sapply(nums, cubit)
 mapply(cubit,nums,SIMPLIFY = FALSE)
 mapply(cubit,nums,SIMPLIFY = TRUE)
 mapply(sqrt,nums,SIMPLIFY = TRUE)
+
 # use mapply with function created on the fly :-)
+# the function is 3x + 1
 mapply(function(x) 3*x+1,c(1,2,3,4,5))

@@ -1,5 +1,7 @@
 ### EXERCISE #1 ###
+
 # Manipulating a DNA sequence as a string
+
 install.packages("stringr")
 
 library(stringr)
@@ -53,6 +55,7 @@ dna3
 
 
 ### EXERCISE #2 ###
+
 # Write function for Hardy-Weinberg equilibrium
 hardy_weinberg <- function(p) {
   # a little bit of error-handling
@@ -69,6 +72,7 @@ print(paste0("The proportion of homozygots is ",p1_homoz))
 
 
 ### EXERCISE #3 ###
+
 # RNA-seq experiment
 
 library(dplyr)
@@ -98,14 +102,17 @@ rna_exp
 # get those genes which are:
 # a. induced
 rna_exp %>% filter(log2fc >= 2) %>% select(genes)
+
 # b. repressed
 rna_exp %>% filter(log2fc <= 0.5) %>% select(genes)
+
 # c. stay the same
 rna_exp %>% filter(log2fc < 2 & log2fc > 0.5) %>% select(genes)
 
 
 
 ### EXERCISE #4 ###
+
 # Using the hybridogram package on slightly a larger data set
 
 install.packages("hybridogram")
