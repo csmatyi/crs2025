@@ -122,14 +122,19 @@ V1 <- c("Phoca largha","Phoca largha","Phoca caspica","Odobenus rosmarus")
 V2 <- c("Phoca vitulina","Phoca caspica","Pusa hispida","Odobenus sp.")
 V3 <- c(2,3,3,3)
 hybrid_data <- data.frame(V1,V2,V3)
+
 C1 <- c(1,2,3)
 C2 <- c("No hybrid","Hybrid with same 3rd species","Documented hybrid")
 codes <- data.frame(C1,C2)
+
+jpeg("hybridogram.jpg")
 hybridogram(hybrid_data, codes)
+dev.off()
 
 
 
 ### EXERCISE #5 ###
+
 # Use the matrixcut package to find clusters in matrixes
 
 install.packages("matrixcut")
@@ -139,7 +144,10 @@ library("matrixcut")
 primates <- matrixcut::primates
 primates
 
+# use matrixcut to get clusters
 matrixcut::matrixcut(primates,0.9)
-jpeg("primate_components.jpg") # save as an image
+
+# create matrixcut image
+jpeg("primate_components.jpg")
 matrixcut::componentplot(primates,0,1)
 dev.off()
