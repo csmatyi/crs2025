@@ -236,8 +236,7 @@ if (x > 5) {
 ### Exercise 3 on dummy RNA-seq data
 
 
-### Continue here ###
-# Review slides on applying functions to data
+### Review slides on applying functions to data ###
 
 # apply, lapply, sapply, mapply
 # declare matrix

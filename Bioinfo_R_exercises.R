@@ -117,6 +117,7 @@ rna_exp %>% filter(log2fc < 2 & log2fc > 0.5) %>% select(genes)
 
 install.packages("hybridogram")
 library("hybridogram")
+installed.packages()
 
 V1 <- c("Phoca largha","Phoca largha","Phoca caspica","Odobenus rosmarus")
 V2 <- c("Phoca vitulina","Phoca caspica","Pusa hispida","Odobenus sp.")
