@@ -116,6 +116,8 @@ rna_exp %>% filter(log2fc < 2 & log2fc > 0.5) %>% select(genes)
 # Using the hybridogram package on slightly a larger data set
 
 install.packages("hybridogram")
+# OR
+install.packages("hybridogram_0.3.2.tar.gz",repos=NULL,dependencies=TRUE,type="source")
 library("hybridogram")
 installed.packages()
 
