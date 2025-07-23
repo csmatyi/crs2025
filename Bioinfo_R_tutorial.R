@@ -1,8 +1,14 @@
-# Creation Research Society conference July 22, 2025, St. Louis
+### Creation Research Society conference July 22, 2025, St. Louis ###
+#####################################################################
 
 ### BASICS
+# Go to the very beginning of a line and hit Control + Enter to execute the line
+# Hilite multiple lines and hit Control + Enter to execute to execute selected lines
+
+# This is a comment.
 
 # get the working directory that you are in
+# getwd: get working directory
 getwd()
 # set this to your own directory
 setwd("C:\\Users\\csmat\\OneDrive\\Desktop\\CreationScience\\Talks\\CRSconferences\\CRS2025\\workshop")
@@ -26,13 +32,17 @@ is.nan(1/0)
 as.integer(9.9)
 as.double(11)
 
-# TRUE and FALSE
+# TRUE and FALSE, T and F
 crs_is_cool <- TRUE
 crs_is_cool
+FALSE -> crs_is_uncool
+crs_is_uncool
+
 as.integer(T)
 as.integer(F)
 as.integer(TRUE)
 as.integer(FALSE)
+
 typeof(7)
 typeof(2.4)
 typeof(FALSE)
@@ -41,12 +51,12 @@ typeof("ACGTGGC")
 # use built-in math functions
 sqrt(9)
 sqrt(25)
-sin(pi/4) # here pi = 3.14159, pi/4is 45 degrees
+sin(pi/4) # here pi = 3.14159, pi/4 is 45 degrees
 log10(100)
 log2(16)
 log(121,base=11)
 abs(-4)
-factorial(5)
+factorial(5) # = 5 x 4 x 3 x 2 x 1
 # n!/(k! x (n-k)!)
 choose(5,3)
 
@@ -71,6 +81,7 @@ paste0("A","C","G","T")
 
 
 
+### Functions
 # look for help for a given function
 help(sqrt)
 ?sqrt # same thing
@@ -78,6 +89,7 @@ help.search("log")
 ??"log"
 # get an example of how to run a function
 example(log)
+
 # assign values to variables
 X <- 1
 1 -> X
@@ -85,9 +97,13 @@ X = 1
 
 # create a list
 v <- c(4, "ACCGT", FALSE)
+v
 x <- c(56, 95.3, 0.4)
+x
 z <- seq(2,5)
+z
 z2 <- seq(2,5,0.01)
+z2
 
 # use sequence method
 a <- 3
@@ -100,6 +116,7 @@ sqrt(x)
 # reference list element
 x[3]
 vec <- c(a=3.4, b=5.4, c=0.4) # named list
+vec
 
 # look at list name
 names(vec)
@@ -141,6 +158,7 @@ x > 10
 x[x > 10]
 
 # get elements via T/F
+# T: print the number, f: don't print it
 nums[c(T, T, F, F, T, F, F, F, F, T)]
 
 # create matrix
@@ -211,9 +229,11 @@ square(5)
 # show method code
 square
 
-### Exercise #2: Hardy-Weinberg function ###
+### Go to exercises and do Exercise #2: Hardy-Weinberg function ###
 
 
+
+### Loops and if/else statements
 
 # loop
 for (i in 1:5) { 
@@ -233,7 +253,7 @@ if (x > 5) {
   print("x is less than 5")
 }
 
-### Exercise 3 on dummy RNA-seq data
+### Go to exercises and do Exercise 3 on dummy RNA-seq data
 
 
 ### Review slides on applying functions to data ###
@@ -276,3 +296,5 @@ mapply(sqrt,nums,SIMPLIFY = TRUE)
 # use mapply with function created on the fly :-)
 # the function is 3x + 1
 mapply(function(x) 3*x+1,c(1,2,3,4,5))
+
+### Go to slides on packages

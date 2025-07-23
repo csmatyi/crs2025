@@ -3,13 +3,15 @@
 # Manipulating a DNA sequence as a string
 
 install.packages("stringr")
-
 library(stringr)
+
 dna <- "GTCGTCGTAGTAGGTTTATTATTCAA"
+
+# calculate GC%
 c_count <- stringr::str_count(dna, "C")
 g_count <- stringr::str_count(dna, "G")
 dna_len <- stringr::str_length(dna)
-gc <- (c_count + g_count)/dna_len
+gc <- (c_count + g_count)*100/dna_len
 gc
 
 stringr::str_to_lower(dna)
@@ -31,7 +33,9 @@ library(msa)
 
 Biostrings::DNAString(dna)
 Biostrings::DNAString(dna_mut)
+# notice the difference in color at base #4
 
+# run multiple alignment
 seqs <- DNAStringSet(c(dna, dna_mut))
 alignment <- msa(seqs, method = "ClustalW")
 alignment
@@ -44,15 +48,26 @@ paste(
     ),
   collapse="")
 
-# insertion
-dna2 <- paste0(stringr::str_sub(dna,1,7),"AAAAA",stringr::str_sub(dna,8,25),collapse="")
+# insertion of AAAAA after base #7
+dna2 <- paste0(
+  stringr::str_sub(dna,1,7),
+  "AAAAA",
+  stringr::str_sub(dna,8,25),
+  collapse=""
+  )
 dna2
 
-# deletion
-dna3 <- paste0(stringr::str_sub(dna,1,7),stringr::str_sub(dna,12,25),collapse="")
+# deletion of 5 bp at position #5
+dna3 <- paste0(
+  stringr::str_sub(dna,1,7),
+  stringr::str_sub(dna,12,25),
+  collapse=""
+  )
 dna3
 
 
+
+# Go back to Bioinfo_R_tutorial.R
 
 ### EXERCISE #2 ###
 
@@ -61,7 +76,7 @@ hardy_weinberg <- function(p) {
   # a little bit of error-handling
   try(if ((p < 0) || (p > 1)) stop("p must be between 0 and 1!"))
   q <- 1 - p
-  homozygous <- 2*p*q/(p*p+2*p*q+q*q)
+  homozygous <- 2*p*q / (p*p + 2*p*q + q*q)
   return(homozygous)
 }
 
@@ -71,10 +86,13 @@ print(paste0("The proportion of homozygots is ",p1_homoz))
 
 
 
+# Go back to Bioinfo_R_tutorial.R
+
 ### EXERCISE #3 ###
 
 # RNA-seq experiment
 
+install.packages("dplyr")
 library(dplyr)
 
 rna_exp <- data.frame(
@@ -87,32 +105,36 @@ rna_exp <- data.frame(
 )
 rna_exp
 
+# calculate log2 fold change between tumor and control
 log2fc <- function(vec,n=3) {
   avg_trt <- mean(vec[1:n])
   m <- n+1
+
   avg_ctrl <- mean(vec[m:length(vec)])
   l2fc <- avg_trt/avg_ctrl
   return(l2fc)
 }
 
+# calculate values
 l2fcs <- apply(as.matrix(rna_exp[,2:6]),1,log2fc)
 rna_exp <- cbind(rna_exp,log2fc=l2fcs)
 rna_exp
 
 # get those genes which are:
-# a. induced
+# a. induced (log2 fc >= 2)
 rna_exp %>% filter(log2fc >= 2) %>% select(genes)
 
-# b. repressed
+# b. repressed (log2 fc <= 0.5)
 rna_exp %>% filter(log2fc <= 0.5) %>% select(genes)
 
-# c. stay the same
+# c. stay the same (0.5 <= log2 fc <= 2)
 rna_exp %>% filter(log2fc < 2 & log2fc > 0.5) %>% select(genes)
 
 
 
-### EXERCISE #4 ###
+# Go back to Bioinfo_R_tutorial.R
 
+### EXERCISE #4 ###
 # Using the hybridogram package on slightly a larger data set
 
 install.packages("hybridogram")
