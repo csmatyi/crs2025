@@ -24,6 +24,8 @@ setwd("C:\\Users\\csmat\\OneDrive\\Desktop\\CreationScience\\Talks\\CRSconferenc
 NA + 2
 w <- NA
 is.na(w)
+v <- NaN
+is.nan(v)
 1/0
 -1/0
 is.nan(Inf)

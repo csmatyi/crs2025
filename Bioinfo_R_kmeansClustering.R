@@ -92,7 +92,7 @@ invisible(dev.off())
 
 # stats and clusters files
 # number of clusters
-n <- 16
+n <- 7
 
 res_max <- kmeans(mx,n,algorithm="Forgy") # other algorithms: Forgy Lloyd MacQueen Hartigan-Wong
 
