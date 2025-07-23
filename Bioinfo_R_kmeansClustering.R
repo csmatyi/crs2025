@@ -7,6 +7,7 @@ options(warn=-1)
 # set this to your own directory
 invisible(install.packages("ggplot2",repos = "http://cran.us.r-project.org"))
 
+install.packages(c("ggplot2","cluster","factoextra","ape","seqinr","msa"))
 library("ggplot2")
 library("cluster")
 library("factoextra")
@@ -69,7 +70,7 @@ clr = gray.colors(100)
 
 # n is the estimated number of clusters/kinds/baramins
 # if you change the estimate, restart from this point!
-n <- 16
+n <- 7
 
 clusmeth="ward.D2" # other clustering methods: ward.D ward.D2 single median average mcquitty complete centroid
 row.clusters = hclust(dist(mx_hm),method=clusmeth)

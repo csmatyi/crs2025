@@ -135,6 +135,8 @@ rna_exp %>% filter(log2fc < 2 & log2fc > 0.5) %>% select(genes)
 # Go back to Bioinfo_R_tutorial.R
 
 ### EXERCISE #4 ###
+# Review slides on packages
+# Review slides on hybridogram
 # Using the hybridogram package on slightly a larger data set
 
 install.packages("hybridogram")
@@ -143,14 +145,17 @@ install.packages("hybridogram_0.3.2.tar.gz",repos=NULL,dependencies=TRUE,type="s
 library("hybridogram")
 installed.packages()
 
-V1 <- c("Phoca largha","Phoca largha","Phoca caspica","Odobenus rosmarus")
-V2 <- c("Phoca vitulina","Phoca caspica","Pusa hispida","Odobenus sp.")
-V3 <- c(2,3,3,3)
-hybrid_data <- data.frame(V1,V2,V3)
-
 C1 <- c(1,2,3)
 C2 <- c("No hybrid","Hybrid with same 3rd species","Documented hybrid")
 codes <- data.frame(C1,C2)
+codes
+
+V1 <- c("Phoca largha","Phoca largha","Phoca caspica","Odobenus rosmarus")
+V2 <- c("Phoca vitulina","Phoca caspica","Pusa hispida","Odobenus sp.")
+V3 <- c(2,3,3,3)
+
+hybrid_data <- data.frame(V1,V2,V3)
+hybrid_data
 
 jpeg("hybridogram.jpg")
 hybridogram(hybrid_data, codes)
@@ -161,6 +166,7 @@ dev.off()
 ### EXERCISE #5 ###
 
 # Use the matrixcut package to find clusters in matrixes
+# Review slides on matrixcut
 
 install.packages("matrixcut")
 library("matrixcut")
