@@ -70,7 +70,8 @@ clr = gray.colors(100) # grayscale
 # if you change the estimate, restart from this point!
 n <- 7
 
-clusmeth="ward.D2" # other clustering methods: ward.D ward.D2 single median average mcquitty complete centroid
+# clustering methods: ward.D ward.D2 single median average mcquitty complete centroid
+clusmeth="ward.D2" 
 row.clusters = hclust(dist(mx_hm),method=clusmeth)
 col.clusters = hclust(dist(mx_hm),method=clusmeth)
 ctk <- cutree(row.clusters,k=n)
@@ -81,7 +82,7 @@ clus_clrs_vec <- clus_clrs[ctk[species[sort(row.clusters$order)]]]
 # provide a name for the heatmap
 heatmap_name=paste("heatmap_",clusmeth,"_",n,"_250724.jpg",sep="")
 jpeg(filename = heatmap_name, height = 3000, width = 3000, units = "px", res=400) # topo.colors(100) 5500, 5000
-h <- heatmap(mx_hm, symkey =F, symbreaks=F, scale="none", dendrogram = F, Rowv=T, Colv=T, col = clr, RowSideColors=clus_clrs_vec, breaks = myBreaks, border_color=NA, na.color="white", margin = c(15,15), # gray.colors(100)
+h <- heatmap(mx_hm, symkey=F, symbreaks=F, scale="none", dendrogram=F, Rowv=T, Colv=T, col = clr, RowSideColors=clus_clrs_vec, breaks = myBreaks, border_color=NA, na.color="white", margin = c(15,15),
         cexRow=cexx,cexCol=ceyy, key=T, trace="none", lmat=rbind( c(4, 3), c(2,1), c(0,0) ), lhei=c(1.8,6.5,1), hclustfun = function(d) hclust(d, method=clusmeth), # dendrogram="none",
         labCol=as.expression(lapply(colnames(mx), function(a) bquote(italic(.(a))))),labRow=as.expression(lapply(rownames(mx), function(a) bquote(italic(.(a))))))
 invisible(dev.off())
