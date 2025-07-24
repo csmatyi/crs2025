@@ -7,7 +7,7 @@ options(warn=-1)
 # set this to your own directory
 invisible(install.packages("ggplot2",repos = "http://cran.us.r-project.org"))
 
-install.packages(c("ggplot2","cluster","factoextra","ape","seqinr","msa"))
+install.packages(c("ggplot2","cluster","factoextra","ape","seqinr","msa"), dependencies=TRUE,repos = "http://cran.us.r-project.org")
 library("ggplot2")
 library("cluster")
 library("factoextra")
@@ -39,21 +39,19 @@ message("Drawing plots...")
 
 # Betweenness and withinness plots
 
-# Silhouette plot !
+### 1. Silhouette plot
 jpeg("Silhouette.jpg")
 fviz_nbclust(mx, kmeans, method = "silhouette", k.max=20) + theme_classic() # pam|kmeans|hcut|clara
 dev.off()
 
-# Elbow plot !
+### 2. Elbow plot
 jpeg("Elbow.jpg")
 fviz_nbclust(mx, kmeans, method = "wss", k.max=20) + theme_classic() # kmeans|pam (kmeans)
 dev.off()
 
-# Heatmap
+### 3. Heatmap
 species <- row.names(mx)
 myBreaks <- c(seq(0,1,by=0.01))
-myBreaks2 <- c(c(0,0.8,by=0.08),c(seq(0.8,1,by=0.00206)))
-cexx = (1-length(species)/(2*length(species)))
 ceyy = cexx = 0.75
 
 # normalize mx to 0-1
@@ -66,7 +64,7 @@ clr = colorRampPalette(c("yellow","green","darkgreen"))(100) # plant studies
 clr = colorRampPalette(c("green","white","red"))(100)
 clr = colorRampPalette(c("white","yellow","red"))(100) # mitochondrial studies
 clr = colorRampPalette(c("white","yellow","orange","red"))(100)
-clr = gray.colors(100)
+clr = gray.colors(100) # grayscale
 
 # n is the estimated number of clusters/kinds/baramins
 # if you change the estimate, restart from this point!
@@ -81,7 +79,7 @@ clus_clrs_vec <- clus_clrs[ctk[species[sort(row.clusters$order)]]]
 
 ### Heatmap code ###
 # provide a name for the heatmap
-heatmap_name=paste("heatmap_",clusmeth,"_",n,"_250703.jpg",sep="")
+heatmap_name=paste("heatmap_",clusmeth,"_",n,"_250724.jpg",sep="")
 jpeg(filename = heatmap_name, height = 3000, width = 3000, units = "px", res=400) # topo.colors(100) 5500, 5000
 h <- heatmap(mx_hm, symkey =F, symbreaks=F, scale="none", dendrogram = F, Rowv=T, Colv=T, col = clr, RowSideColors=clus_clrs_vec, breaks = myBreaks, border_color=NA, na.color="white", margin = c(15,15), # gray.colors(100)
         cexRow=cexx,cexCol=ceyy, key=T, trace="none", lmat=rbind( c(4, 3), c(2,1), c(0,0) ), lhei=c(1.8,6.5,1), hclustfun = function(d) hclust(d, method=clusmeth), # dendrogram="none",
@@ -94,17 +92,11 @@ invisible(dev.off())
 # number of clusters
 n <- 7
 
-res_max <- kmeans(mx,n,algorithm="Forgy") # other algorithms: Forgy Lloyd MacQueen Hartigan-Wong
-
 row.clusters = hclust(dist(mx),method=clusmeth)
 ctk <- cutree(row.clusters,k=n)
 
-# clusters from res_max
-write.table(res_max$cluster, file="kclusters.txt", col.names=F, quote=F, sep="\t")
+# clusters from ctk
 write.table(ctk, file="kclusters.txt", col.names=F, quote=F, sep="\t")
-
-# cut tree clusters
-write.table(ctk, file="kclusters_cutree.txt", col.names=F, quote=F, sep="\t")
 
 header = "cluster\tspecies\tmin\tmean\tmax\tSEM\tp-value\tneglog"
 write(header, file="kstats.txt", sep="\t", append=T)
